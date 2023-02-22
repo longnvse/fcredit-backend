@@ -2,19 +2,14 @@ package com.fu.fcredit.user.service;
 
 import com.fu.fcredit.email.service.EmailService;
 import com.fu.fcredit.user.entity.User;
-import com.fu.fcredit.user.model.CustomUserDetails;
 import com.fu.fcredit.user.repository.UserRepository;
 import com.fu.fcredit.user.repository.VerificationCodeRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
     private UserRepository repository;
     private VerificationCodeRepository verificationCodeRepository;
     private EmailService emailService;
@@ -54,21 +49,21 @@ public class UserService implements UserDetailsService {
         return ResponseEntity.ok("Email kích hoạt tài khoản đã được gửi đến email của bạn!");
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = repository.findUserByUsernameIgnoreCase(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(username);
-        }
-        return new CustomUserDetails(user);
-    }
-
-    @Transactional
-    public UserDetails loadUserById(Long id) {
-        User user = repository.findById(id).orElseThrow(
-                () -> new UsernameNotFoundException("User not found with id : " + id)
-        );
-
-        return new CustomUserDetails(user);
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        User user = repository.findUserByUsernameIgnoreCase(username);
+//        if (user == null) {
+//            throw new UsernameNotFoundException(username);
+//        }
+//        return new CustomUserDetails(user);
+//    }
+//
+//    @Transactional
+//    public UserDetails loadUserById(Long id) {
+//        User user = repository.findById(id).orElseThrow(
+//                () -> new UsernameNotFoundException("User not found with id : " + id)
+//        );
+//
+//        return new CustomUserDetails(user);
+//    }
 }
