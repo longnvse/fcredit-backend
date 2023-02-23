@@ -3,8 +3,10 @@ package com.fu.fcredit.user.service;
 import com.fu.fcredit.email.service.EmailService;
 import com.fu.fcredit.user.entity.User;
 import com.fu.fcredit.user.entity.VerificationCode;
+import com.fu.fcredit.user.repository.UserRepository;
 import com.fu.fcredit.user.repository.VerificationCodeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +16,14 @@ import java.nio.charset.StandardCharsets;
 @Service
 @RequiredArgsConstructor
 public class VerificationCodeService {
-    private final VerificationCodeRepository verificationCodeRepository;
+    private final VerificationCodeRepository repository;
     private final EmailService emailService;
+    private final UserRepository userRepository;
 
     public void generateVerificationCode(User user, String appUrl) {
         VerificationCode verificationCode = new VerificationCode(user);
 
-        verificationCodeRepository.save(verificationCode);
+        repository.save(verificationCode);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getEmail());
@@ -34,5 +37,16 @@ public class VerificationCodeService {
         emailService.sendEmail(mailMessage);
 
         System.out.println(text);
+    }
+
+    public ResponseEntity<String> verifyEmail(String token) {
+        VerificationCode verificationCode = repository.findVerificationCodeByToken(token);
+
+        verificationCode.getUser().setEnabled(true);
+        verificationCode.setUsed(true);
+        userRepository.save(verificationCode.getUser());
+        repository.save(verificationCode);
+
+        return ResponseEntity.ok("Thành công!");
     }
 }

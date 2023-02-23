@@ -19,14 +19,13 @@ public class VerificationCode {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String token;
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date expiryDate;
+    private boolean used;
 
     public VerificationCode(User user) {
         this.user = user;

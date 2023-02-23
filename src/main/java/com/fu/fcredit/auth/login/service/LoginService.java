@@ -19,15 +19,9 @@ public class LoginService {
     private final UserRepository repository;
     private final TokenRepository tokenRepository;
     private final JwtService jwtService;
-    private final AuthenticationManager authenticationManager;
 
     public LoginResponse login(LoginRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
-        );
+
         var user = repository.findUserByUsernameIgnoreCase(request.getUsername())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
