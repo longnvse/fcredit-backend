@@ -1,28 +1,57 @@
 package com.fu.fcredit.user.entity;
 
+import com.fu.fcredit.token.entity.Token;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity(name = "users")
 @Getter
 @Setter
-public class User {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "username", nullable = false)
+    @Column(nullable = false)
     private String username;
-    @Column(name = "password", length = 64, nullable = false)
+    @Column(length = 64, nullable = false)
     private String password;
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
-    @Column(name = "full_name")
     private String fullName;
-    @Column(name = "phone_number")
     private String phoneNumber;
-    @Column(name = "description", length = Integer.MAX_VALUE)
+    @Column(length = Integer.MAX_VALUE)
     private String description;
-    @Column(name = "enabled")
     private boolean enabled;
+
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("USER"));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 }
