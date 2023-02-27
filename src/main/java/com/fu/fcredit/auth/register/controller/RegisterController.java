@@ -16,10 +16,10 @@ public class RegisterController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest request,
-                                           @RequestHeader(name = "host") String host) {
+                                           @RequestHeader(name = "origin") String origin) {
         validator.validateForRegister(request);
 
-        return service.register(request, host);
+        return service.register(request, origin);
     }
 
     @PostMapping("/verify-user")

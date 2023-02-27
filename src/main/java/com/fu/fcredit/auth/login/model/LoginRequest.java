@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class LoginRequest {
     private String username;
     String password;
+    String captchaResponse;
 }

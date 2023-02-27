@@ -10,9 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-
 @Service
 @RequiredArgsConstructor
 public class VerificationCodeService {
@@ -28,12 +25,15 @@ public class VerificationCodeService {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getEmail());
         mailMessage.setFrom("fcredit.fu@gmail.com");
-        mailMessage.setSubject("Complete Registration!");
+        String subject = "[Thông báo] - Kích hoạt tài khoản FCredit!";
+
+        mailMessage.setSubject(subject);
         String host = appUrl == null || appUrl.isBlank() ? "localhost:3000" : appUrl;
-        String uri = host + "/confirm-user?token=" + verificationCode.getToken();
-        String url = URLEncoder.encode(uri, StandardCharsets.UTF_8);
-        String text = "To confirm your account, please click here : " + url;
+        String url = host + "/verify-user?token=" + verificationCode.getToken();
+//        String url = URLEncoder.encode(uri, StandardCharsets.UTF_8);
+        String text = "Vui lòng truy cập đường dẫn: " + url + " để kích hoạt tài khoản!";
         mailMessage.setText(text);
+
         emailService.sendEmail(mailMessage);
 
         System.out.println(text);

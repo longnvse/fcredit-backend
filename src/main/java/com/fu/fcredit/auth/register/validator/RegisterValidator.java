@@ -1,5 +1,6 @@
 package com.fu.fcredit.auth.register.validator;
 
+import com.fu.fcredit.auth.recaptcha.ulti.ReCaptchaUtil;
 import com.fu.fcredit.auth.register.model.RegisterRequest;
 import com.fu.fcredit.exception.BadRequestException;
 import com.fu.fcredit.user.validate.UserValidator;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 public class RegisterValidator {
     private final UserValidator userValidator;
     private final VerificationCodeValidator verificationCodeValidator;
+    private final ReCaptchaUtil reCaptchaUtil;
 
     private static final String EMAIL_REQUEST = "Vui lòng nhập email!";
 
@@ -23,6 +25,7 @@ public class RegisterValidator {
         isNotPopulated(request.getUsername(), USERNAME_REQUEST);
         isNotPopulated(request.getEmail(), EMAIL_REQUEST);
         isNotPopulated(request.getPassword(), PASSWORD_REQUEST);
+//        reCaptchaUtil.verifyCaptcha(request.getCaptchaResponse());
 
         userValidator.validateForExistEmail(request.getEmail());
         userValidator.validateForExistUsername(request.getUsername());
