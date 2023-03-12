@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "Account")
 @Getter
 @Setter
-public class Account {
+public class AccountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,4 +26,7 @@ public class Account {
     private String phoneNumber;
     @Column(name = "description", length = Integer.MAX_VALUE)
     private String description;
+
+    @OneToMany(mappedBy="account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<DeptorEntity> items;
 }
