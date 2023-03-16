@@ -13,6 +13,6 @@ public class DebtorService {
     private final DebtorRepository repository;
 
     public Page<DebtorEntity> getDebtors(Pageable pageable) {
-
+    return null;
     }
 }
