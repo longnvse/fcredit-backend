@@ -2,7 +2,6 @@ package com.fu.fcredit.debtnote.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.sql.Update;
 
 import java.util.Date;
 
@@ -19,8 +18,9 @@ public class DebtNote {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String note;
-    private Boolean dateType;
+    private Boolean isDebt;
     private Long money;
+    private Date debtDate;
     private Date createDate;
 
 

@@ -1,20 +1,22 @@
 package com.fu.fcredit.debtnote.service;
 
+import com.fu.fcredit.debtnote.entity.DebtNote;
 import com.fu.fcredit.debtnote.repository.DebtNoteRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 
-import com.fu.fcredit.debtnote.entity.DebtNote;
 @Service
-
+@RequiredArgsConstructor
 public class DebtNoteService {
-    private final DebtNoteRepository REPOSITORY;
+    private final DebtNoteRepository repository;
 
-    public DebtNoteService(DebtNoteRepository repository) {
-        REPOSITORY = repository;
+    public DebtNote addDebtnote(DebtNote debtNote) {
+        debtNote.setCreateDate(new Date());
+
+        return repository.save(debtNote);
     }
 
-    public DebtNote addDebtnote(DebtNote debtNote){
-        return REPOSITORY.save(debtNote);
-    }
+
 }
