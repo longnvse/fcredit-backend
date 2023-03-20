@@ -2,18 +2,17 @@ package com.fu.fcredit.debtnote.validate;
 
 import com.fu.fcredit.debtnote.entity.DebtNote;
 import com.fu.fcredit.debtnote.repository.DebtNoteRepository;
-import com.fu.fcredit.debtor.entity.Debtor;
 import com.fu.fcredit.exception.BadRequestException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
+@RequiredArgsConstructor
 public class DebtNoteValidate {
     private final DebtNoteRepository repository;
 
-    public DebtNoteValidate(DebtNoteRepository repository) {
-        this.repository = repository;
-    }
-
     public void validateForAddDebtNote(DebtNote debtNote) {
-        this.isNotMoney(debtNote.getMoney(), "Vui long nhap money");
+        isNotMoney(debtNote.getMoney(), "Vui long nhap money");
     }
 
 
@@ -24,8 +23,5 @@ public class DebtNoteValidate {
         }
 
     }
-
-//    private void isValid(String) {
-//    }
 }
 
