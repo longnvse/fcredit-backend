@@ -14,6 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+
 public class Debtor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +26,7 @@ public class Debtor {
     private Long debtTotal;
     private Date createDate;
     private Date updatedDate;
+
 
 
 }

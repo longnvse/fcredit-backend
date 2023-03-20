@@ -15,6 +15,7 @@ public class DebtorValidate {
 
     private final DebtorRepository repository;
 
+
     public void validateForAdd(Debtor debtor) {
         this.isNotPopulated(debtor.getName(), "Vui lòng nhập họ tên!");
         this.validateForValidEmail(debtor.getEmail());
