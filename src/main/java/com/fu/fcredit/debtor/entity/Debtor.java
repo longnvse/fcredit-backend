@@ -13,7 +13,7 @@ import java.util.Date;
 public class Debtor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(name = "name")
     private String name;
     @Column(name = "address")
