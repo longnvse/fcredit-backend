@@ -3,25 +3,22 @@ package com.fu.fcredit.debtor.validate;
 import com.fu.fcredit.debtor.entity.Debtor;
 import com.fu.fcredit.debtor.repository.DebtorRepository;
 import com.fu.fcredit.exception.BadRequestException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
+@RequiredArgsConstructor
 public class DebtorValidate {
 
     private final DebtorRepository repository;
 
-    public DebtorValidate(DebtorRepository repository) {
-        this.repository = repository;
-    }
-
     public void validateForAdd(Debtor debtor) {
         this.isNotPopulated(debtor.getName(), "Vui lòng nhập họ tên!");
         this.validateForValidEmail(debtor.getEmail());
-        this.validateForValidPhone(debtor.getPhone_num());
+        this.validateForValidPhone(debtor.getPhoneNumber());
     }
 
     public void validateForUpdate(Long id, Debtor debtor) {
