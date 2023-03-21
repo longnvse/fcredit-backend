@@ -19,6 +19,9 @@ public class JwtService {
     private static final String SECRET_KEY = "aXJvbmJpZ2dlcnR5cGV5b3V0aGNlbnRjcnlidXN5Z2VuZXJhbGJ5Z3JhYmJlZGF0ZXM=";
 
     public String extractUsername(String token) {
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -40,7 +43,7 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 30))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

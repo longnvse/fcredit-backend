@@ -1,5 +1,6 @@
 package com.fu.fcredit.auth.login.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fu.fcredit.auth.login.model.LoginRequest;
 import com.fu.fcredit.auth.login.model.LoginResponse;
 import com.fu.fcredit.token.entity.Token;

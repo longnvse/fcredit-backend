@@ -1,6 +1,5 @@
 package com.fu.fcredit.user.entity;
 
-import com.fu.fcredit.token.entity.Token;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,8 +32,8 @@ public class User implements UserDetails {
     private String description;
     private boolean enabled;
 
-    @OneToMany(mappedBy = "user")
-    private List<Token> tokens;
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+//    private List<Token> tokens;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

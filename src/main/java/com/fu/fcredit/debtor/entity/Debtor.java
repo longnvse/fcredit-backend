@@ -14,11 +14,11 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-
 public class Debtor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String name;
     private String address;
     private String phoneNumber;
@@ -27,6 +27,5 @@ public class Debtor {
     private Date createDate;
     private Date updatedDate;
 
-
-
+    private String username;
 }

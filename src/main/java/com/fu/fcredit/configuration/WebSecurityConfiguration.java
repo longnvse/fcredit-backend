@@ -39,7 +39,6 @@ public class WebSecurityConfiguration {
                 .permitAll()
                 .anyRequest()
                 .permitAll()
-//                .authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -63,7 +62,7 @@ public class WebSecurityConfiguration {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*");
+                registry.addMapping("/**").allowedOrigins("*").allowedHeaders("*").allowedMethods("*");
             }
         };
     }

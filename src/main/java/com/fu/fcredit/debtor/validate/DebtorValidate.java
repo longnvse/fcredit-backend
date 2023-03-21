@@ -28,7 +28,7 @@ public class DebtorValidate {
     }
 
     public void validateForExistDebtor(Long id) {
-        if (!this.repository.existsById(id)) {
+        if (!repository.existsById(id)) {
             throw new BadRequestException("Người nợ không tồn tại!");
         }
     }
